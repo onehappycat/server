@@ -15,14 +15,14 @@
 		<div class="name">
 			{{ user.id }}
 			<div class="displayName subtitle">
-				<div v-tooltip="user.displayname.length > 20 ? user.displayname : ''" class="cellText">
+				<div v-tooltip="user.displayname" @mouseover="toggleTooltip($event)" class="cellText">
 					{{ user.displayname }}
 				</div>
 			</div>
 		</div>
 		<div />
 		<div class="mailAddress">
-			<div v-tooltip="user.email !== null && user.email.length > 20 ? user.email : ''" class="cellText">
+			<div v-tooltip="user.email" @mouseover="toggleTooltip($event)" class="cellText">
 				{{ user.email }}
 			</div>
 		</div>
@@ -154,6 +154,11 @@ export default {
 		toggleEdit() {
 			this.$emit('update:editing', true)
 		},
+		toggleTooltip(event) {
+			if (event.target.offsetWidth >= event.target.scrollWidth) {
+				event.target._tooltip.options.title = ''
+			}
+		}
 	},
 }
 </script>
